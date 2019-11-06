@@ -2,6 +2,7 @@ package com.project2.user.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.data.rest.core.annotation.RestResource;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.Entity;
@@ -23,5 +24,6 @@ public class User extends RepresentationModel {
     private String avatar;
     private LocalDate dob;
     @OneToMany
+    @RestResource(path = "useradress", rel = "adress")
     private List<Adress> adresses;
 }
