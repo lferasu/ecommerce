@@ -1,1 +1,2 @@
-cd ../UserService && mvn spring-boot:run
+#!/bin/bash
+mvn spring-boot:run

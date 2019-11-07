@@ -1,18 +1,13 @@
-package com.project2.user.models;
+package com.project2.creditcard.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
-@Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 public class PaymentInfo {
-    @Id
-    @GeneratedValue
     private Integer id;
     public  boolean preferred = false;
     private String bankNumber;
@@ -22,11 +17,6 @@ public class PaymentInfo {
     private String expirationDate;
     private String userName;
     private PaymentMethod paymentMethod;
-    private String email;
+    private Double amount;
 }
 
-enum PaymentMethod {
-    CREDITCARD,
-    BANKACCOUNT,
-    PAYPAL
-}

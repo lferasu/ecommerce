@@ -7,19 +7,24 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDate;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class Reciept {
+public class PaymentInfo {
     @Id
     @GeneratedValue
-    Integer id;
-    private String payer;
-    private Double amount;
+    private Integer id;
+    public  boolean preferred = false;
+    private String bankNumber;
+    private String routingNumber;
+    private String creditCardNumber;
+    private String securityNumber;
+    private String expirationDate;
+    private String userName;
     private PaymentMethod paymentMethod;
-    private LocalDate paymentDate;
+    private String email;
+    private Double amount;
 }
 
