@@ -1,4 +1,4 @@
-package com.project2.user.models;
+package com.project2.order.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,17 +17,17 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class User extends RepresentationModel {
+public class Order extends RepresentationModel {
+
     @Id
     @GeneratedValue
     private Integer id;
-    private String firstName;
-    private String lastName;
-    private String avatar;
-    private LocalDate dob;
-    private String email;
+    private Integer uid;
+    private  Double totalPricel;
+    private String shipmentAddress;
+    private LocalDate orderDate;
+    private Integer cartNumber;
     @OneToMany
-    private List<Address> addresses;
-    @OneToMany
-    private List<PaymentInfo> paymentInfo;
+    List<Product> products;
+
 }

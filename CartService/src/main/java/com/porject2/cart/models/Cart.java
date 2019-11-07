@@ -1,4 +1,4 @@
-package com.project2.user.models;
+package com.porject2.cart.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,24 +9,25 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class User extends RepresentationModel {
+public class Cart extends RepresentationModel {
+
     @Id
     @GeneratedValue
     private Integer id;
-    private String firstName;
-    private String lastName;
-    private String avatar;
-    private LocalDate dob;
-    private String email;
+
     @OneToMany
-    private List<Address> addresses;
-    @OneToMany
-    private List<PaymentInfo> paymentInfo;
+    private List<Product> products;
+    private Integer uid;
+    private Double totalPrice =0.0;
+
+    private void addProduct(Product product) {
+        products.add(product);
+        totalPrice += product.getPrice();
+    }
 }
