@@ -2,7 +2,7 @@ package com.project2.user.models;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.data.rest.core.annotation.RestResource;
+import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.Entity;
@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
 public class User extends RepresentationModel {
     @Id
     @GeneratedValue
@@ -23,7 +24,9 @@ public class User extends RepresentationModel {
     private String lastName;
     private String avatar;
     private LocalDate dob;
+    private String email;
     @OneToMany
-    @RestResource(path = "useradress", rel = "adress")
-    private List<Adress> adresses;
+    private List<Address> addresses;
+    @OneToMany
+    private List<PaymentInfo> paymentInfo;
 }

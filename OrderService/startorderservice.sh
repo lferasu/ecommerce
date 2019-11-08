@@ -1,0 +1,1 @@
+cd ../UserService && mvn spring-boot:run

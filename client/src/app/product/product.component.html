@@ -1,0 +1,37 @@
+<form [formGroup]="productForm" (ngSubmit)="submitForm()">
+
+    <hr>
+    <fieldset class="form-group">
+        <input formControlName="name" placeholder="name" class="form-control form-control-lg" type="text" />
+    </fieldset>
+
+    <fieldset class=" form-group">
+        <input formControlName="vendor" placeholder="vendor" class="form-control form-control-lg" type="text" />
+    </fieldset>
+
+    <fieldset class="form-group">
+        <input formControlName="price" placeholder="price" class="form-control form-control-lg" type="text" />
+    </fieldset>
+
+    <fieldset class="form-group">
+        <input formControlName="category" placeholder="category" class="form-control form-control-lg" type="text" />
+    </fieldset>
+
+    <fieldset class="form-group">
+        <input formControlName="quantity" placeholder="quantity" class="form-control form-control-lg" type="text" />
+    </fieldset>
+
+
+    <fieldset class="form-group">
+        <input formControlName="unit" placeholder="unit" class="form-control form-control-lg" type="text" />
+    </fieldset>
+
+    <fieldset class="form-group">
+        <input formControlName="imageUrl" placeholder="imageUrl" class="form-control form-control-lg" type="text" />
+    </fieldset>
+
+    <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
+        Submit
+    </button>
+
+</form>
