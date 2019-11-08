@@ -1,0 +1,16 @@
+# The secrets file should not be checked into Git. It's published only for demonstration purpose.
+secretGenerator:
+- name: mysql-root-pass
+  literals:
+  - password=1234
+- name: mysql-user-pass
+  literals:
+  - username=user
+  - password=1234 
+- name: mysql-db-url
+  literals:
+  - database=springbatchdb
+  - url=jdbc:mysql://mysqldb:3306/springbatchdb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+resources:
+  - mysql-deployment.yaml
+  - polling-app-server.yaml  
