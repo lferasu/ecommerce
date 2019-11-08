@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="login:main" external.linked.project.path="$MODULE_DIR$/../../LoginService" external.root.project.path="$MODULE_DIR$/../../LoginService" external.system.id="GRADLE" external.system.module.group="edu.mum.cs" external.system.module.type="sourceSet" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+    <facet type="web" name="Web">
+      <configuration>
+        <webroots />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
+    <output url="file://$MODULE_DIR$/../../LoginService/build/classes/java/main" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../LoginService/build/generated/sources/annotationProcessor/java/main" />
+    <content url="file://$MODULE_DIR$/../../LoginService/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../LoginService/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../LoginService/src/main/resources" type="java-resource" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
