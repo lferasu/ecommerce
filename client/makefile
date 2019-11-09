@@ -3,7 +3,7 @@
 containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/clientservice:latest)
 
 #===================  docker  ===========================
-docker-build: build
+docker-build:
 	docker build -t timnuwa/clientservice:latest .
 
 
