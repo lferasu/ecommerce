@@ -1,6 +1,6 @@
 
 
-containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/authservice:latest)
+containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/clientservice:latest)
 
 #===================  Maven  ===========================
 clean:
@@ -8,7 +8,7 @@ clean:
 build: clean
 	./mvnw install
 run-local: build
-	java -jar target/authservice-*.jar
+	java -jar target/clientservice-*.jar
 # #===================  gradle  ===========================
 # clean:
 # 	./gradlew clean
@@ -19,21 +19,21 @@ run-local: build
 
 #===================  docker  ===========================
 docker-build: build
-	docker build -t timnuwa/authservice:latest .
+	docker build -t timnuwa/clientservice:latest .
 
 
 docker-run: docker-build
-	docker run -p 8080:8080 timnuwa/authservice:latest
+	docker run -p 8080:8080 timnuwa/clientservice:latest
 
 
 docker-login:
 	docker login
 
 docker-push: docker-login docker-build
-	docker push timnuwa/authservice:latest
+	docker push timnuwa/clientservice:latest
 
 docker-bash:
-	docker exec -ti timnuwa/authservice:latest /bin/sh
+	docker exec -ti timnuwa/clientservice:latest /bin/sh
 
 docker-containerID:
 	@echo running: $(containerID)
@@ -53,7 +53,7 @@ docker-prune:
 
 #Use Docker of your host to communicate with the Docker daemon inside the Minikube VM:
 k8s-use-minikube-docker:
-	@eval $$(minikube docker-env) 
+	@eval $$(minikube docker-env)
 	echo "$$(minikube docker-env)"
 
 k8s-deployment-create: k8s-use-minikube-docker  docker-push
@@ -94,7 +94,7 @@ k8s-persistence-create:
 	kubectl apply -f k8s-persistence-volumn.yaml
 	kubectl apply -f k8s-persistence-database.yaml
 	echo "create initial db, run this when DB service"gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project ecommerce-258417
-	echo "kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h authservice-db -ppassword -e 'create database db_example;'"
+	echo "kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h clientservice-db -ppassword -e 'create database db_example;'"
 
 k8s-persistence-delete:
 	kubectl delete -f k8s-persistence-database.yaml
