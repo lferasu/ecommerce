@@ -8,5 +8,5 @@ spec:
     app: authservice
   ports:
     - protocol: TCP
-      port: 8084
+      port: 80
       targetPort: 8080

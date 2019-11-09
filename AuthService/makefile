@@ -93,7 +93,7 @@ k8s-role-delete:
 k8s-persistence-create:
 	kubectl apply -f k8s-persistence-volumn.yaml
 	kubectl apply -f k8s-persistence-database.yaml
-	echo "create initial db, run this when DB service"
+	echo "create initial db, run this when DB service"gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project ecommerce-258417
 	echo "kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h authservice-db -ppassword -e 'create database db_example;'"
 
 k8s-persistence-delete:
@@ -113,7 +113,7 @@ k8s-info:
 
 
 
-k8s-all-create: k8s-configmap-create k8s-secrets-create k8s-role-create k8s-persistence-create k8s-deployment-create k8s-service-create k8s-service-url
+k8s-all-create: k8s-configmap-create k8s-secrets-create k8s-role-create k8s-deployment-create k8s-service-create
 	echo "Done"
 k8s-all-delete: k8s-configmap-delete k8s-secrets-delete k8s-persistence-delete k8s-deployment-delete k8s-service-delete
 	echo "Done"
