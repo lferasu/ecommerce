@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-batch-deployment
+  labels:
+    app: springbatch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springbatch
+  template:
+    metadata:
+      labels:
+        app: springbatch
+    spec:
+      containers:
+      - name: springbatch
+        image: brianbwengye/spring-batch:1.1
+        ports:
+        - containerPort: 80
