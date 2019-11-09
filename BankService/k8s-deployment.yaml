@@ -19,7 +19,7 @@ spec:
         - name: bankservice
           image: timnuwa/bankservice:latest
           ports:
-            - containerPort: 8081
+            - containerPort: 8096
           env:
             - name: KEY1
               valueFrom:

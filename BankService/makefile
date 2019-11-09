@@ -8,7 +8,7 @@ clean:
 build: clean
 	./mvnw install
 run-local: build
-	java -jar target/bankservice-*.jar
+	java -jar target/bank*.jar
 # #===================  gradle  ===========================
 # clean:
 # 	./gradlew clean
