@@ -1,6 +1,6 @@
 
 
-containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/authservice:latest)
+containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/cartservice:latest)
 
 #===================  Maven  ===========================
 clean:
@@ -19,21 +19,21 @@ run-local: build
 
 #===================  docker  ===========================
 docker-build: build
-	docker build -t timnuwa/authservice:latest .
+	docker build -t timnuwa/cartservice:latest .
 
 
 docker-run: docker-build
-	docker run -p 8080:8080 timnuwa/authservice:latest
+	docker run -p 8080:8080 timnuwa/cartservice:latest
 
 
 docker-login:
 	docker login
 
 docker-push: docker-login docker-build
-	docker push timnuwa/authservice:latest
+	docker push timnuwa/cartservice:latest
 
 docker-bash:
-	docker exec -ti timnuwa/authservice:latest /bin/sh
+	docker exec -ti timnuwa/cartservice:latest /bin/sh
 
 docker-containerID:
 	@echo running: $(containerID)
@@ -94,7 +94,7 @@ k8s-persistence-create:
 	kubectl apply -f k8s-persistence-volumn.yaml
 	kubectl apply -f k8s-persistence-database.yaml
 	echo "create initial db, run this when DB service"gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project ecommerce-258417
-	echo "kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h authservice-db -ppassword -e 'create database db_example;'"
+	echo "kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h cartservice-db -ppassword -e 'create database db_example;'"
 
 k8s-persistence-delete:
 	kubectl delete -f k8s-persistence-database.yaml
