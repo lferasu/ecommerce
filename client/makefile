@@ -2,21 +2,6 @@
 
 containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/clientservice:latest)
 
-#===================  Maven  ===========================
-clean:
-	./mvnw clean
-build: clean
-	./mvnw install
-run-local: build
-	java -jar target/clientservice-*.jar
-# #===================  gradle  ===========================
-# clean:
-# 	./gradlew clean
-# build: clean
-# 	./gradlew  bootJar
-# run-local: build
-# 	java -jar build/libs/service-a-*.jar
-
 #===================  docker  ===========================
 docker-build: build
 	docker build -t timnuwa/clientservice:latest .
