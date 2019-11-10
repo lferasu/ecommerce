@@ -1,44 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authservice-deployment
+  name: creditcardservice-deployment
   labels:
-    app: authservice
+    app: creditcardservice
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: authservice
+      app: creditcardservice
   template:
     metadata:
       labels:
-        app: authservice
+        app: creditcardservice
 
     spec:
       containers:
-        - name: authservice
-          image: timnuwa/authservice:latest
+        - name: creditcardservice
+          image: timnuwa/creditcardservice:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8095
           env:
             - name: KEY1
               valueFrom:
                 configMapKeyRef:
-                  name: authservice-config
+                  name: creditcardservice-config
                   key: someKey1
             - name: NEXT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: authservice-config
+                  name: creditcardservice-config
                   key: nextService
             - name: SERVICE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: authservice-secrets
+                  name: creditcardservice-secrets
                   key: service-api-key
             #MYSQL
             - name: MYSQL_HOST
-              value: authservice-db
+              value: creditcardservice-db
 
             - name: MYSQL_USER
               value: root
@@ -48,5 +48,5 @@ spec:
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: authservice-secrets
+                  name: creditcardservice-secrets
                   key: mysql-root-password
