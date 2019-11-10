@@ -19,7 +19,8 @@ spec:
         - name: clientservice
           image: timnuwa/clientservice:latest
           ports:
-            - containerPort: 8081
+            - containerPort: 80
+            - containerPort: 443
           env:
             - name: KEY1
               valueFrom:
@@ -36,17 +37,3 @@ spec:
                 secretKeyRef:
                   name: clientservice-secrets
                   key: service-api-key
-            #MYSQL
-            - name: MYSQL_HOST
-              value: clientservice-db
-
-            - name: MYSQL_USER
-              value: root
-            - name: MYSQL_PORT
-              value: "8085"
-
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: clientservice-secrets
-                  key: mysql-root-password
