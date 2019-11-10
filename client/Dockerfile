@@ -1,42 +1,21 @@
 ### STAGE 1: Build ###
 
-#FROM node:8.11.1-alpine as builder
-FROM node:12.2.0 as builder
+FROM node:12.2.0 as node
 
-# Preparing working environment.
-#RUN mkdir -p /usr/src/client
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY . .
-# Installing dependencies.
-#COPY package*.json .
-COPY /package.json .
-COPY /package-lock.json .
+COPY package*.json ./
+
 RUN npm install
 
-RUN npm run build --prod
+COPY . .
 
-# Copy openhome-panel source into image.
-#COPY . /usr/src/client
+RUN npm run build
 
-# Building app.
-#RUN npm run-script build
 
-### STAGE 2: Setup ###
+FROM nginx:1.13.12-alpine
 
-FROM nginx:alpine
 
-# Removing nginx default page.
-RUN rm -rf /usr/share/nginx/html/*
+COPY --from=node /usr/src/app/dist/client /usr/share/nginx/html
 
-# Copying nginx configuration.
-COPY /nginx-custom.conf* /etc/nginx/nginx.conf
-
-# Copying openhome-panel source into web server root.
-COPY --from=builder /dist/client/* /usr/share/nginx/html
-
-# Exposing ports.
-EXPOSE 8081
-
-# Starting server.
-CMD ["nginx", "-g", "daemon off;"]
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf

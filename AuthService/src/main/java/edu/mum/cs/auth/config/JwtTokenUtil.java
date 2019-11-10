@@ -24,6 +24,7 @@ public class JwtTokenUtil {
 
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
+
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())

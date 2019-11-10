@@ -1,0 +1,32 @@
+<div class="card" style="width: 40vw; margin: auto;">
+    <div class="card-header">
+        Customer : {{userInfo.sub}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Cart total: $ {{totalPrice}} </h5>
+    </div>
+</div>
+<table class="table" style="width: 40vw; margin: auto;">
+
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">product name</th>
+            <th scope="col">vendor</th>
+            <th scope="col">category</th>
+            <th scope="col">price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products; let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{product.name}}</td>
+            <td>{{product.vendor}}</td>
+            <td>{{product.category}}</td>
+            <td><span class="badge badge-primary badge-pill"> ${{product.price}}</span></td>
+        </tr>
+    </tbody>
+</table>
+<div style=" width:15vw; margin: auto;">
+    <button class="btn, btn-success" (click)="checkout()"> Procced to checkout</button>
+</div>

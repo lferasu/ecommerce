@@ -5,10 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,17 +14,13 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
-public class Order extends RepresentationModel {
+public class Shipment extends RepresentationModel {
 
     @Id
     @GeneratedValue
     private Integer id;
-    private Integer uid;
-    private  Double totalPricel;
+    private String username;
     private String shipmentAddress;
-    private LocalDate orderDate;
-    private Integer cartNumber;
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     List<Product> products;
-
 }

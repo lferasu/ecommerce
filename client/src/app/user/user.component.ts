@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Product } from '../model/Product'
+import { ProductService } from '../Services/product.service'
 
 @Component({
   selector: 'app-user',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb: FormBuilder, private productService: ProductService) {
+
+  }
 
   ngOnInit() {
   }
