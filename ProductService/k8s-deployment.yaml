@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productservice-deployment
+  labels:
+    app: productservice
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: productservice
+  template:
+    metadata:
+      labels:
+        app: productservice
+
+    spec:
+      containers:
+        - name: productservice
+          image: timnuwa/productservice:latest
+          ports:
+            - containerPort: 8092
+          env:
+            - name: KEY1
+              valueFrom:
+                configMapKeyRef:
+                  name: productservice-config
+                  key: someKey1
+            - name: NEXT_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: productservice-config
+                  key: nextService
+            - name: SERVICE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: productservice-secrets
+                  key: service-api-key
+            #MYSQL
+            - name: MYSQL_HOST
+              value: productservice-db
+
+            - name: MYSQL_USER
+              value: root
+            - name: MYSQL_PORT
+              value: "8085"
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: productservice-secrets
+                  key: mysql-root-password

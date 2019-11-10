@@ -1,44 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: StatelessServiceB-deployment
+  name: userservice-deployment
   labels:
-    app: StatelessServiceB
+    app: userservice
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: StatelessServiceB
+      app: userservice
   template:
     metadata:
       labels:
-        app: StatelessServiceB
+        app: userservice
 
     spec:
       containers:
-        - name: StatelessServiceB
-          image: timnuwa/StatelessServiceB:latest
+        - name: userservice
+          image: timnuwa/userservice:latest
           ports:
             - containerPort: 8080
           env:
             - name: KEY1
               valueFrom:
                 configMapKeyRef:
-                  name: StatelessServiceB-config
+                  name: userservice-config
                   key: someKey1
             - name: NEXT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: StatelessServiceB-config
+                  name: userservice-config
                   key: nextService
             - name: SERVICE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: StatelessServiceB-secrets
+                  name: userservice-secrets
                   key: service-api-key
             #MYSQL
             - name: MYSQL_HOST
-              value: StatelessServiceB-db
+              value: userservice-db
 
             - name: MYSQL_USER
               value: root
@@ -48,5 +48,5 @@ spec:
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: StatelessServiceB-secrets
+                  name: userservice-secrets
                   key: mysql-root-password

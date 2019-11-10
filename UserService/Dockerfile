@@ -1,5 +1,5 @@
-FROM openjdk:8-jdk-alpine
-EXPOSE 8080
+FROM openjdk:11
+EXPOSE 8091
 VOLUME /tmp
-COPY build/libs/*.jar app.jar
+COPY target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]

@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: paypalservice-db
+spec:
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: auth-db-port
+  selector:
+    app: paypalservice-db
+    tier: db
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paypalservice-db
+spec:
+  selector:
+    matchLabels:
+      app: paypalservice-db
+      tier: db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: paypalservice-db
+        tier: db
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: paypalservice-db
+          env:
+            # Use secret in real usage
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: paypalservice-secrets
+                  key: mysql-root-password
+          ports:
+            - containerPort: 3306
+              name: auth-db-port
+          volumeMounts:
+            - name: paypalservice-db-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: paypalservice-db-persistent-storage
+          persistentVolumeClaim:
+            claimName: paypalservice-pv-claim

@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: orderservice-db
+spec:
+  ports:
+    - protocol: TCP
+      port: 8085
+      targetPort: auth-db-port
+  selector:
+    app: orderservice-db
+    tier: db
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderservice-db
+spec:
+  selector:
+    matchLabels:
+      app: orderservice-db
+      tier: db
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: orderservice-db
+        tier: db
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: orderservice-db
+          env:
+            # Use secret in real usage
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: orderservice-secrets
+                  key: mysql-root-password
+          ports:
+            - containerPort: 3306
+              name: auth-db-port
+          volumeMounts:
+            - name: orderservice-db-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: orderservice-db-persistent-storage
+          persistentVolumeClaim:
+            claimName: orderservice-pv-claim

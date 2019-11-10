@@ -11,7 +11,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/authservice"
+    path: "/tmp"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

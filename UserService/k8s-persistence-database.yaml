@@ -1,51 +1,51 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: StatelessServiceB-db
+  name: userservice-db
 spec:
   ports:
     - protocol: TCP
       port: 8085
-      targetPort: StatelessServiceB-db-port
+      targetPort: auth-db-port
   selector:
-    app: StatelessServiceB-db
+    app: userservice-db
     tier: db
   clusterIP: None
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: StatelessServiceB-db
+  name: userservice-db
 spec:
   selector:
     matchLabels:
-      app: StatelessServiceB-db
+      app: userservice-db
       tier: db
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: StatelessServiceB-db
+        app: userservice-db
         tier: db
     spec:
       containers:
         - image: mysql:5.6
-          name: StatelessServiceB-db
+          name: userservice-db
           env:
             # Use secret in real usage
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: StatelessServiceB-secrets
+                  name: userservice-secrets
                   key: mysql-root-password
           ports:
             - containerPort: 3306
-              name: StatelessServiceB-db-port
+              name: auth-db-port
           volumeMounts:
-            - name: StatelessServiceB-db-persistent-storage
+            - name: userservice-db-persistent-storage
               mountPath: /var/lib/mysql
       volumes:
-        - name: StatelessServiceB-db-persistent-storage
+        - name: userservice-db-persistent-storage
           persistentVolumeClaim:
-            claimName: StatelessServiceB-pv-claim
+            claimName: userservice-pv-claim
