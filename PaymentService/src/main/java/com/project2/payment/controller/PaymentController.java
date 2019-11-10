@@ -21,9 +21,15 @@ public class PaymentController {
     @Autowired
     RecieptRepository recieptRepository;
 
+    @GetMapping("/creditcard")
+    String get() {
+        return "hello";
+    }
+
     @PostMapping("/creditcard")
     ResponseEntity<Reciept> payWithCreditCard(@RequestBody PaymentInfo paymentInfo) throws Exception {
 
+        System.out.println("triggered");
         if(paymentInfo.getCreditCardNumber() == null ||
         paymentInfo.getExpirationDate() == null ||
         paymentInfo.getPaymentMethod() != PaymentMethod.CREDITCARD) {
@@ -44,6 +50,7 @@ public class PaymentController {
 
     @PostMapping("/bank")
     ResponseEntity<Reciept> payWithBankAccount(@RequestBody PaymentInfo paymentInfo) throws Exception {
+        System.out.println("triggered");
         if(paymentInfo.getBankNumber() == null ||
                 paymentInfo.getRoutingNumber() == null ||
                 paymentInfo.getPaymentMethod() != PaymentMethod.BANKACCOUNT) {
@@ -61,6 +68,7 @@ public class PaymentController {
 
     @PostMapping("/paypal")
     ResponseEntity<Reciept> payWithPaypal(@RequestBody PaymentInfo paymentInfo) throws Exception {
+        System.out.println("triggered");
         if(paymentInfo.getEmail() == null ||
                 paymentInfo.getPaymentMethod() != PaymentMethod.PAYPAL) {
             throw new ValidationException("Validation exception, Make sure that you have correct infromation about payment");

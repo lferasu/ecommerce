@@ -1,0 +1,13 @@
+<form [formGroup]="productForm" (ngSubmit)="submitForm()">
+
+    <hr>
+    <fieldset class="form-group">
+        <input formControlName="bankNumber" placeholder="bankNumber" class="form-control form-control-lg" type="text"
+            value={{loggedInUser.paymentInfo.bankNumber}} />
+    </fieldset>
+
+    <fieldset class=" form-group">
+        <input formControlName="routingNumber" placeholder="routingNumber" class="form-control form-control-lg"
+            type="text" />
+    </fieldset>
+</form>

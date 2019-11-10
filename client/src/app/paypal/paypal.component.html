@@ -1,0 +1,9 @@
+<form [formGroup]="productForm" (ngSubmit)="submitForm()">
+
+    <hr>
+    <fieldset class="form-group">
+        paypal Account
+        <input formControlName="paypalAccount" placeholder="paypalAccount" class="form-control form-control-lg"
+            type="text" />
+    </fieldset>
+</form>

@@ -10,11 +10,11 @@
       <ul class="navbar-nav mr-auto">
 
         <li class="nav-item active">
-          <a class="nav-link" [routerLink]="['catalog']">Catalog <span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['catalog']">Catalog </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" [routerLink]="['product']">Register Product <span class="sr-only">(current)</span></a>
+          <a class="nav-link" [routerLink]="['product']">Register Product </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['user']">Register User</a>
@@ -22,7 +22,21 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['login']">Login</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['signup']">SignUP</a>
+        </li>
       </ul>
+
+      <!-- <li class="nav-item" style=" list-style-type: none;">
+        <a class="nav-link" [routerLink]="['login']"><img
+            src="https://library.kissclipart.com/20191006/zve/kissclipart-supermarket-icon-shopping-cart-icon-business-and-t-b92eca6eb18bb52c.png"
+            width="40vw" height="40vh" alt="" style="display: inline-block;"></a>
+        {{number}}
+      </li> -->
+      <i class="fa" style="font-size:24px" [routerLink]="['cart']"><img
+          src="https://img.icons8.com/doodle/48/000000/shopping-cart--v2.png"></i>
+      <span class='badge badge-warning' id='lblCartCount'>{{number}} </span>
+
       <!-- <form class="form-inline my-2 my-lg-0" [formGroup]="myForm">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

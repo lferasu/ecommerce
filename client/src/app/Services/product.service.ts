@@ -20,7 +20,6 @@ export class ProductService {
   }
 
   registerProduct(product: Product) {
-    console.log(product)
     return this.httpClient.post('http://localhost:8092/products', product)
   }
 }

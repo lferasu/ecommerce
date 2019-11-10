@@ -5,6 +5,7 @@
         <p class="card-text">$ {{product.price}}</p>
         <p class="card-text">{{product.availableInventory}} &nbsp; {{product.unit}} in stock</p>
 
-        <a href="#" class="btn btn-primary">add to cart</a>
+        <Button class="btn btn-primary" (click)="addToCart(product)">add to cart</Button>
+        <!-- <a class="btn btn-primary" (click)="addToCart(product)"></a> -->
     </div>
 </div>

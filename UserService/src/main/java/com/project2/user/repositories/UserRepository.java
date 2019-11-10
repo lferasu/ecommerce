@@ -5,10 +5,13 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@RepositoryRestController
-public interface UserRepository extends PagingAndSortingRepository<User,Integer> {
+@Repository
+public interface UserRepository extends JpaRepository<User,Integer> {
+
+     User findByUsername(String username);
 
 }
