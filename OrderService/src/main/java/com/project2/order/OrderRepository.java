@@ -1,8 +1,9 @@
 package com.project2.order;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import com.project2.order.model.Shipment;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 
 @RepositoryRestController
-public interface OrderRepository extends PagingAndSortingRepository {
+interface ShipmentRepository extends JpaRepository<Shipment, Integer> {
 }

@@ -1,6 +1,7 @@
 package edu.mum.cs.auth.controllers;
 
 import edu.mum.cs.auth.model.JwtResponse;
+import edu.mum.cs.auth.model.User1;
 import edu.mum.cs.auth.repositories.UserRepository;
 import edu.mum.cs.auth.config.JwtTokenUtil;
 import edu.mum.cs.auth.model.JwtRequest;
@@ -20,8 +21,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.Set;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -41,6 +44,9 @@ public class JwtAuthenticationController {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
+    RestTemplate restTemplate;
+
+    @Autowired
     private JwtUserDetailsService userDetailsService;
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody LoginForm authenticationRequest) throws Exception {
@@ -50,32 +56,40 @@ public class JwtAuthenticationController {
 
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(authenticationRequest.getUsername());
-//        final String token = jwtTokenUtil.generateToken(userDetails);
+//        final String token = jwtTokenUtil.generateToken(use
         final String token = jwtTokenUtil.generateJwtToken(authentication);
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpForm signUpForm) {
+    public ResponseEntity<User1> registerUser(@Valid @RequestBody User1 signUpForm) {
         if(userRepository.existsByUsername(signUpForm.getUsername())) {
-            return new ResponseEntity<String>("Fail -> Username is already taken!",
-                    HttpStatus.BAD_REQUEST);
+           throw new ValidationException("Fail -> Username is already taken!");
         }
 
         if(userRepository.existsByEmail(signUpForm.getEmail())) {
-            return new ResponseEntity<String>("Fail -> Email is already in use!",
-                    HttpStatus.BAD_REQUEST);
+            throw new ValidationException("Fail -> email is already taken!");
         }
 
         // Creating user's account
-        User user = new User(signUpForm.getName(), signUpForm.getUsername(),
+        User user = new User(signUpForm.getFullName(), signUpForm.getUsername(),
                 signUpForm.getEmail(), encoder.encode(signUpForm.getPassword()));
 
 
+        // save user info to user microservice
+
+        User1 savedUser = restTemplate.postForObject("http://localhost:8091/users",signUpForm,User1.class);
+
         userRepository.save(user);
 
-        return ResponseEntity.ok().body("User registered successfully!");
+        return new ResponseEntity<User1>(savedUser, HttpStatus.OK);
+    }
+
+
+    @ExceptionHandler
+    ResponseEntity<String> handleException(ValidationException e) {
+        return  new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
     private Authentication authenticate(String username, String password) throws Exception {
         try {

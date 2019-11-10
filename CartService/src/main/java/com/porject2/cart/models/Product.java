@@ -5,9 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -19,11 +17,13 @@ public class Product extends RepresentationModel {
     private Integer id;
     private String name;
     private String vendor;
-    private String catagory;
+    private String category;
     private Integer availableInventory;
     private Integer minimumInventory;
     private String unit;
     private Double price;
+
+   // private Cart cart;
 
     public void increaseAvailableInventory(Integer value) {
         availableInventory +=value;

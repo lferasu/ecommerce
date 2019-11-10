@@ -8,7 +8,7 @@ import org.springframework.hateoas.RepresentationModel;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data
@@ -20,7 +20,12 @@ public class Product extends RepresentationModel {
     private Integer id;
     private String name;
     private String vendor;
-    private String catagory;
+    private String category;
     private Double price;
-
+    private String imageUrl;
+    private Integer availableInventory;
+    private Integer minimumInventory;
+    private String unit;
+    @ManyToOne
+    Shipment shipment;
 }

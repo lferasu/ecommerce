@@ -18,5 +18,6 @@ public class Address extends RepresentationModel {
     private String city;
     private String zip;
     private String street;
-    private boolean isPrimary;
+    @OneToOne
+    private User user;
 }

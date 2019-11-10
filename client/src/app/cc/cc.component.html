@@ -1,0 +1,19 @@
+<form [formGroup]="productForm" (ngSubmit)="submitForm()">
+
+    <hr>
+    <fieldset class="form-group">
+        <input formControlName="creditCardNumber" placeholder="creditCardNumber" class="form-control form-control-lg"
+            type="text" value={{loggedInUser.paymentInfo.creditCardNumber}} />
+    </fieldset>
+
+    <fieldset class=" form-group">
+        <input formControlName="securityNumber" placeholder="securityNumber" class="form-control form-control-lg"
+            type="text" />
+    </fieldset>
+
+    <fieldset class="form-group">
+        <input formControlName="expirationDate" placeholder="expirationDate" class="form-control form-control-lg"
+            type="text" />
+    </fieldset>
+
+</form>

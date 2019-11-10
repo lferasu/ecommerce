@@ -5,10 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,13 +17,13 @@ public class User extends RepresentationModel {
     @Id
     @GeneratedValue
     private Integer id;
-    private String firstName;
-    private String lastName;
+    private String username;
+    private String fullName;
     private String avatar;
     private LocalDate dob;
     private String email;
-    @OneToMany
-    private List<Address> addresses;
-    @OneToMany
-    private List<PaymentInfo> paymentInfo;
+    @OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
+    private Address address;
+    @OneToOne(cascade=CascadeType.ALL, orphanRemoval = true)
+    private PaymentInfo paymentInfo;
 }

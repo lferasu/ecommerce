@@ -5,10 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,13 +19,18 @@ public class Cart extends RepresentationModel {
     @GeneratedValue
     private Integer id;
 
-    @OneToMany
-    private List<Product> products;
-    private Integer uid;
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products =new ArrayList<>();
+
+//    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+//    List<Product> productList = new ArrayList<>();
+    private String username;
     private Double totalPrice =0.0;
+    private boolean valid;
 
     private void addProduct(Product product) {
         products.add(product);
         totalPrice += product.getPrice();
     }
+
 }
