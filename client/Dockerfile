@@ -1,19 +1,36 @@
-FROM node:12.2.0
+### STAGE 1: Build ###
 
-EXPOSE 8081
-# set working directory
-WORKDIR /app
+FROM node:8.11.1-alpine as builder
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# Preparing working environment.
+RUN mkdir -p /usr/src/client
+WORKDIR /usr/src/client
 
-# install and cache app dependencies
-COPY package.json /app/package.json
+# Installing dependencies.
+COPY package*.json /usr/src/client/
 RUN npm install
-RUN npm install -g @angular/cli@7.3.9
 
-# add app
-COPY . /app
+# Copy openhome-panel source into image.
+COPY . /usr/src/client
 
-# start app
-CMD ng serve
+# Building app.
+RUN npm run-script build
+
+### STAGE 2: Setup ###
+
+FROM nginx:1.13.12-alpine
+
+# Removing nginx default page.
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copying nginx configuration.
+COPY /nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Copying openhome-panel source into web server root.
+COPY --from=builder /usr/src/client/public /usr/share/nginx/html
+
+# Exposing ports.
+EXPOSE 8081
+
+# Starting server.
+CMD ["nginx", "-g", "daemon off;"]
