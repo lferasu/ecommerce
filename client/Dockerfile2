@@ -1,7 +1,7 @@
 ### STAGE 1: Build ###
 
 #FROM node:8.11.1-alpine as builder
-FROM node:12.2.0 as builder
+FROM node:12.2.0
 
 # Preparing working environment.
 #RUN mkdir -p /usr/src/client
@@ -9,9 +9,7 @@ WORKDIR /app
 
 COPY . .
 # Installing dependencies.
-#COPY package*.json .
-COPY /package.json .
-COPY /package-lock.json .
+#COPY package*.json /usr/src/client/
 RUN npm install
 
 RUN npm run build --prod
@@ -27,13 +25,13 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Removing nginx default page.
-RUN rm -rf /usr/share/nginx/html/*
+#RUN rm -rf /usr/share/nginx/html/*
 
 # Copying nginx configuration.
-COPY /nginx-custom.conf* /etc/nginx/nginx.conf
+#COPY /nginx-custom.conf* /etc/nginx/conf.d/default.conf
 
 # Copying openhome-panel source into web server root.
-COPY --from=builder /dist/client/* /usr/share/nginx/html
+COPY --from=node /app/dist/client /usr/share/nginx/html
 
 # Exposing ports.
 EXPOSE 8081
