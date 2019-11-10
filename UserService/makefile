@@ -1,32 +1,39 @@
 
 
-containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/StatelessServiceB:latest)
+containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/userservice:latest)
 
-#===================  gradle  ===========================
+#===================  Maven  ===========================
 clean:
-	./gradlew clean
+	./mvnw clean
 build: clean
-	./gradlew  bootJar
+	./mvnw install
 run-local: build
-	java -jar build/libs/service-a-*.jar
+	java -jar target/*.jar
+# #===================  gradle  ===========================
+# clean:
+# 	./gradlew clean
+# build: clean
+# 	./gradlew  bootJar
+# run-local: build
+# 	java -jar build/libs/service-a-*.jar
 
 #===================  docker  ===========================
 docker-build: build
-	docker build -t timnuwa/StatelessServiceB:latest .
+	docker build -t timnuwa/userservice:latest .
 
 
 docker-run: docker-build
-	docker run -p 8080:8080 timnuwa/StatelessServiceB:latest
+	docker run -p 8091:8091 timnuwa/userservice:latest
 
 
 docker-login:
 	docker login
 
 docker-push: docker-login docker-build
-	docker push timnuwa/StatelessServiceB:latest
+	docker push timnuwa/userservice:latest
 
 docker-bash:
-	docker exec -ti timnuwa/StatelessServiceB:latest /bin/sh
+	docker exec -ti timnuwa/userservice:latest /bin/sh
 
 docker-containerID:
 	@echo running: $(containerID)
@@ -86,8 +93,8 @@ k8s-role-delete:
 k8s-persistence-create:
 	kubectl apply -f k8s-persistence-volumn.yaml
 	kubectl apply -f k8s-persistence-database.yaml
-	echo "create initial db, run this when DB service"
-	echo "kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h StatelessServiceB-db -ppassword -e 'create database db_example;'"
+	echo "create initial db, run this when DB service"gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project ecommerce-258417
+	echo "kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h userservice-db -ppassword -e 'create database db_example;'"
 
 k8s-persistence-delete:
 	kubectl delete -f k8s-persistence-database.yaml
@@ -102,11 +109,11 @@ k8s-info:
 	kubectl get configmaps
 	kubectl get services
 	kubectl get pods
-	echo "You can also check DB via:\n kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h StatelessServiceB-db -ppassword "
+	echo "You can also check DB via:\n kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h AuthService-db -ppassword "
 
 
 
-k8s-all-create: k8s-configmap-create k8s-secrets-create k8s-role-create k8s-persistence-create k8s-deployment-create k8s-service-create k8s-service-url
+k8s-all-create: k8s-configmap-create k8s-secrets-create k8s-role-create k8s-deployment-create k8s-service-create
 	echo "Done"
 k8s-all-delete: k8s-configmap-delete k8s-secrets-delete k8s-persistence-delete k8s-deployment-delete k8s-service-delete
 	echo "Done"

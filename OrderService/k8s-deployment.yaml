@@ -1,44 +1,44 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authservice-deployment
+  name: orderservice-deployment
   labels:
-    app: authservice
+    app: orderservice
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: authservice
+      app: orderservice
   template:
     metadata:
       labels:
-        app: authservice
+        app: orderservice
 
     spec:
       containers:
-        - name: authservice
-          image: timnuwa/authservice:latest
+        - name: orderservice
+          image: timnuwa/orderservice:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8098
           env:
             - name: KEY1
               valueFrom:
                 configMapKeyRef:
-                  name: authservice-config
+                  name: orderservice-config
                   key: someKey1
             - name: NEXT_SERVICE
               valueFrom:
                 configMapKeyRef:
-                  name: authservice-config
+                  name: orderservice-config
                   key: nextService
             - name: SERVICE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: authservice-secrets
+                  name: orderservice-secrets
                   key: service-api-key
             #MYSQL
             - name: MYSQL_HOST
-              value: authservice-db
+              value: orderservice-db
 
             - name: MYSQL_USER
               value: root
@@ -48,5 +48,5 @@ spec:
             - name: MYSQL_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: authservice-secrets
+                  name: orderservice-secrets
                   key: mysql-root-password

@@ -2,6 +2,11 @@
 
 containerID := $(shell docker ps -a -q --filter ancestor=timnuwa/clientservice:latest)
 
+#===================  Angular  ===========================
+
+run-local:
+	npm install & ng serve
+
 #===================  docker  ===========================
 docker-build:
 	docker build -t timnuwa/clientservice:latest .
