@@ -53,9 +53,6 @@ public class JwtAuthenticationController {
     @Value("${USER_SERVICE}")
     private String userService;
 
-    @Value("${USER_SERVICE_PORT}")
-    private String userPort;
-    
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody LoginForm authenticationRequest) throws Exception {
@@ -89,7 +86,7 @@ public class JwtAuthenticationController {
         // save user info to user microservice
 
         // User1 savedUser = restTemplate.postForObject("http://localhost:8091/users",signUpForm,User1.class);
-        User1 savedUser = restTemplate.postForObject("http://"+userService+":"+userPort+"/users",signUpForm,User1.class);
+        User1 savedUser = restTemplate.postForObject("http://"+userService+"/users",signUpForm,User1.class);
 
         userRepository.save(user);
 

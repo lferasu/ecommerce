@@ -6,4 +6,10 @@ data:
   someKey1: value1
   #reference: https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.RC1/reference/html/#kubernetes-native-service-discovery
 
-  nextService: paymentservice.default.svc.cluster.local:8084
+  nextService: paymentservice.default.svc.cluster.local
+
+  ccService: creditcardservice
+
+  bankService: bankservice
+
+  ppService: paypalservice

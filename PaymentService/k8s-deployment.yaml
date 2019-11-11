@@ -26,27 +26,39 @@ spec:
                 configMapKeyRef:
                   name: paymentservice-config
                   key: someKey1
-            - name: NEXT_SERVICE
+            - name: CC_SERVICE
               valueFrom:
                 configMapKeyRef:
                   name: paymentservice-config
-                  key: nextService
+                  key: ccService
+            - name: CC_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: paymentservice-config
+                  key: ccServicePort
+            - name: BANK_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: paymentservice-config
+                  key: bankService
+            - name: BANK_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: paymentservice-config
+                  key: bankServicePort
+            - name: PP_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: paymentservice-config
+                  key: ppService
+            - name: PP_SERVICE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: paymentservice-config
+                  key: ppServicePort
             - name: SERVICE_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: paymentservice-secrets
                   key: service-api-key
-            #MYSQL
-            - name: MYSQL_HOST
-              value: paymentservice-db
-
-            - name: MYSQL_USER
-              value: root
-            - name: MYSQL_PORT
-              value: "8085"
-
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: paymentservice-secrets
-                  key: mysql-root-password
+            

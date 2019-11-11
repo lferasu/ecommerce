@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.xml.bind.ValidationException;
 
@@ -26,6 +27,16 @@ public class PaymentController {
         return "hello";
     }
 
+    @Value("${CC_SERVICE}")
+    private String ccService;
+
+    @Value("${BANK_SERVICE}")
+    private String bankService;
+
+    @Value("${PP_SERVICE}")
+    private String ppService;
+
+    
     @PostMapping("/creditcard")
     ResponseEntity<Reciept> payWithCreditCard(@RequestBody PaymentInfo paymentInfo) throws Exception {
 
@@ -37,7 +48,10 @@ public class PaymentController {
         }
 
         try {
-            Reciept reciept = restTemplate.postForObject("http://localhost:8095/creditcards",paymentInfo,Reciept.class);
+
+            // Reciept reciept = restTemplate.postForObject("http://localhost:8095/creditcards",paymentInfo,Reciept.class);
+            Reciept reciept = restTemplate.postForObject("http://"+ccService+"/creditcards",paymentInfo,Reciept.class);
+
             recieptRepository.save(reciept);
             return  new ResponseEntity<Reciept>(reciept, HttpStatus.OK);
         } catch (Exception e) {
@@ -58,7 +72,9 @@ public class PaymentController {
         }
 
         try {
-            Reciept reciept = restTemplate.postForObject("http://localhost:8096/banks",paymentInfo,Reciept.class);
+            // Reciept reciept = restTemplate.postForObject("http://localhost:8096/banks",paymentInfo,Reciept.class);
+            Reciept reciept = restTemplate.postForObject("http://"+bankService+"/banks",paymentInfo,Reciept.class);
+
             recieptRepository.save(reciept);
             return  new ResponseEntity<Reciept>(reciept, HttpStatus.OK);
         } catch (Exception e) {
@@ -75,7 +91,9 @@ public class PaymentController {
         }
 
         try {
-            Reciept reciept = restTemplate.postForObject("http://localhost:8097/paypals",paymentInfo,Reciept.class);
+            // Reciept reciept = restTemplate.postForObject("http://localhost:8097/paypals",paymentInfo,Reciept.class);
+            Reciept reciept = restTemplate.postForObject("http://"+ppService+"/paypals",paymentInfo,Reciept.class);
+
             recieptRepository.save(reciept);
             return  new ResponseEntity<Reciept>(reciept, HttpStatus.OK);
         } catch (Exception e) {
