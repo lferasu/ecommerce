@@ -115,7 +115,7 @@ k8s-info:
 
 k8s-all-create: k8s-configmap-create k8s-secrets-create k8s-role-create k8s-deployment-create k8s-service-create
 	echo "Done"
-k8s-all-delete: k8s-configmap-delete k8s-secrets-delete k8s-persistence-delete k8s-deployment-delete k8s-service-delete
+k8s-all-delete: k8s-configmap-delete k8s-secrets-delete k8s-deployment-delete k8s-service-delete
 	echo "Done"
 
 
