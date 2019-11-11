@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../model/User'
+import { Response } from '../model/Response'
 import { AuthService } from '../Services/auth.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { AuthService } from '../Services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  response: Response;
   loginForm: FormGroup;
   isSubmitted = false;
   userInfo: User
@@ -41,11 +42,12 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.loginForm.value).subscribe(data => {
-      localStorage.setItem('ACCESS_TOKEN', data.accessToken);
+      this.response = <Response>data;
+      localStorage.setItem('ACCESS_TOKEN', <string>this.response.accessToken);
       this.router.navigate(['/catalog'])
     },
       err => {
-        alert(err);
+        console.log(err);
       });
 
   }
