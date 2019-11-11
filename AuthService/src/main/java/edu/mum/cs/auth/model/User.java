@@ -22,21 +22,21 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    // @NotBlank
     @Size(min=3, max = 50)
     private String name;
 
-    @NotBlank
+    // @NotBlank
     @Size(min=3, max = 50)
     private String username;
 
     @NaturalId
-    @NotBlank
+    // @NotBlank
     @Size(max = 50)
     @Email
     private String email;
 
-    @NotBlank
+    // @NotBlank
     @Size(min=6, max = 100)
     private String password;
 
