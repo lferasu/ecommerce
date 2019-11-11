@@ -19,7 +19,7 @@ spec:
         - name: authservice
           image: timnuwa/authservice:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8099
           env:
             - name: KEY1
               valueFrom:
@@ -36,17 +36,8 @@ spec:
                 secretKeyRef:
                   name: authservice-secrets
                   key: service-api-key
-            #MYSQL
-            - name: MYSQL_HOST
-              value: authservice-db
-
-            - name: MYSQL_USER
-              value: root
-            - name: MYSQL_PORT
-              value: "8085"
-
-            - name: MYSQL_PASSWORD
+            - name: USER_SERVICE
               valueFrom:
-                secretKeyRef:
-                  name: authservice-secrets
-                  key: mysql-root-password
+                configMapKeyRef:
+                  name: authservice-config
+                  key: userService
