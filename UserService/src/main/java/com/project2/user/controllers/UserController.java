@@ -16,7 +16,7 @@ public class UserController {
 
     @PostMapping
     ResponseEntity<User> addUser(@RequestBody User user) throws Exception {
-
+        System.out.println("...............CALLED USER SERVICE.......");
         try{
             User saveduser =  userRepository.save(user);
             return new ResponseEntity<User>(saveduser, HttpStatus.OK);
