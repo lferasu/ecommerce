@@ -19,7 +19,7 @@ spec:
         - name: paymentservice
           image: timnuwa/paymentservice:latest
           ports:
-            - containerPort: 8094
+            - containerPort: 8080
           env:
             - name: KEY1
               valueFrom:

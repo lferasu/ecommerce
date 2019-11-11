@@ -19,7 +19,7 @@ spec:
         - name: productservice
           image: timnuwa/productservice:latest
           ports:
-            - containerPort: 8092
+            - containerPort: 8080
           env:
             - name: KEY1
               valueFrom:
