@@ -13,14 +13,8 @@ export class AuthService {
   }
 
   public login(userInfo: User) {
-    // console.log(userInfo)
-    //console.log("hallo");
     return this.httpClient.post("http://localhost:8099/api/auth/login", userInfo);
-
-
   }
-  // localStorage.setItem('ACCESS_TOKEN', "access_token");
-
 
   public isLoggedIn() {
     //console.log(localStorage.getItem('ACCESS_TOKEN'));

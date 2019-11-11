@@ -46,7 +46,7 @@ export class ShipmentService {
     }
 
     // save shipment
-    this.httpClient.post('http://localhost:8094/paypal', shipment)
+    this.httpClient.post('http://localhost:8098/products', shipment)
 
   }
 }
