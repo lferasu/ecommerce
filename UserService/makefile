@@ -23,7 +23,7 @@ docker-build: build
 
 
 docker-run: docker-build
-	docker run -p 8091:8091 timnuwa/userservice:latest
+	docker run -p 8080:8080 timnuwa/userservice:latest
 
 
 docker-login:

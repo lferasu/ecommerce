@@ -19,7 +19,7 @@ spec:
         - name: userservice
           image: timnuwa/userservice:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 8091
           env:
             - name: KEY1
               valueFrom:
@@ -36,17 +36,4 @@ spec:
                 secretKeyRef:
                   name: userservice-secrets
                   key: service-api-key
-            #MYSQL
-            - name: MYSQL_HOST
-              value: userservice-db
-
-            - name: MYSQL_USER
-              value: root
-            - name: MYSQL_PORT
-              value: "8085"
-
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: userservice-secrets
-                  key: mysql-root-password
+            
