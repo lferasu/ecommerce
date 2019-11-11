@@ -14,6 +14,9 @@ export class UserService {
 
   getLoggedInUserInfo() {
     console.log(this.authService.getDecodedAccessToken().sub);
-    return this.httpClient.get("http://localhost:8091/users/" + this.authService.getDecodedAccessToken().sub);
+    const userService = process.env.USER_SERVICE;
+
+    // return this.httpClient.get("http://localhost:8091/users/" + this.authService.getDecodedAccessToken().sub);
+    return this.httpClient.get("http://"+userService+"/users/" + this.authService.getDecodedAccessToken().sub);
   }
 }

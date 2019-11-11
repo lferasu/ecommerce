@@ -11,6 +11,10 @@ export class UserService {
 
 
   registerUser(user: User) {
-    return this.httpClient.post("http://localhost:8099/api/auth/signup", user);
+    const authURL = process.env.USER_SERVICE;
+
+    // return this.httpClient.post("http://localhost:8099/api/auth/signup", user);
+    return this.httpClient.post("http://"+authURL+"/api/auth/signup", user);
+
   }
 }

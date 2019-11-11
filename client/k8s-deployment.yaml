@@ -27,11 +27,36 @@ spec:
                 configMapKeyRef:
                   name: clientservice-config
                   key: someKey1
-            - name: NEXT_SERVICE
+            - name: PRODUCTS_SERVICE
               valueFrom:
                 configMapKeyRef:
                   name: clientservice-config
-                  key: nextService
+                  key: productservice
+            - name: AUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: clientservice-config
+                  key: authURL
+            - name: CART_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: clientservice-config
+                  key: cartservice
+            - name: PAYMENT_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: clientservice-config
+                  key: paymentservice
+            - name: ORDER_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: clientservice-config
+                  key: orderService
+            - name: USER_SERVICE
+              valueFrom:
+                configMapKeyRef:
+                  name: clientservice-config
+                  key: userService
             - name: SERVICE_API_KEY
               valueFrom:
                 secretKeyRef:

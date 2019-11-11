@@ -16,10 +16,14 @@ export class ProductService {
   }
 
   getAllProducts() {
-    return this.httpClient.get('http://localhost:8092/products')
+    const productsURL = process.env.PRODUCTS_SERVICE;
+
+    return this.httpClient.get("http://"+productsURL+"/products")
   }
 
   registerProduct(product: Product) {
-    return this.httpClient.post('http://localhost:8092/products', product)
+    const productsURL = process.env.PRODUCTS_SERVICE;
+
+    return this.httpClient.post("http://"+productsURL+"/products", product)
   }
 }
