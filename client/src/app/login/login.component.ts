@@ -42,8 +42,10 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.login(this.loginForm.value).subscribe(data => {
+
       this.response = <Response>data;
       localStorage.setItem('ACCESS_TOKEN', <string>this.response.accessToken);
+
       this.router.navigate(['/catalog'])
     },
       err => {
