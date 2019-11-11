@@ -10,6 +10,7 @@ import edu.mum.cs.auth.request.LoginForm;
 import edu.mum.cs.auth.request.SignUpForm;
 import edu.mum.cs.auth.services.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
