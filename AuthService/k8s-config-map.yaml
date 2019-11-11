@@ -8,4 +8,4 @@ data:
 
   nextService: authservice.default.svc.cluster.local
   userService: userservice
-  userServicePort: "8091"
+  userServicePort: "8080"
