@@ -9,7 +9,8 @@ over-all-delete:
 
 burn: over-all-delete over-all-create
 
-slice: docker rmi -f $(docker images -a -q)
+slice: 
+	docker rmi -f $(docker images -a -q)
 
 
 
