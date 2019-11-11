@@ -7,4 +7,5 @@ data:
   #reference: https://cloud.spring.io/spring-cloud-static/spring-cloud-kubernetes/1.1.0.RC1/reference/html/#kubernetes-native-service-discovery
 
   nextService: authservice.default.svc.cluster.local:8084
-  userService: userservice.default.svc.cluster.local:8091
+  userService: userservice.default.svc.cluster.local
+  userServicePort: 8091
