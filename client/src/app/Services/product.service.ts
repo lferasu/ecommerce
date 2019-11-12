@@ -6,7 +6,7 @@ import { Product } from '../model/Product';
   providedIn: 'root'
 })
 export class ProductService {
-
+  products_url = "34.69.71.153"   
   constructor(private httpClient: HttpClient) {
 
   }
@@ -16,10 +16,10 @@ export class ProductService {
   }
 
   getAllProducts() {
-    return this.httpClient.get('http://localhost:8092/products')
+    return this.httpClient.get("http://"+this.products_url+"/products")
   }
 
   registerProduct(product: Product) {
-    return this.httpClient.post('http://localhost:8092/products', product)
+    return this.httpClient.post("http://"+this.products_url+"/products", product)
   }
 }

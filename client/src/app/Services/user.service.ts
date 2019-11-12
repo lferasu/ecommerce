@@ -8,12 +8,13 @@ import { User } from '../model/User';
 })
 export class UserService {
   loggedInUser: User
+  user_url = "34.66.20.177";
   constructor(private httpClient: HttpClient, private authService: AuthService) {
 
   }
 
   getLoggedInUserInfo() {
     console.log(this.authService.getDecodedAccessToken().sub);
-    return this.httpClient.get("http://localhost:8091/users/" + this.authService.getDecodedAccessToken().sub);
+    return this.httpClient.get("http://"+this.user_url+"/users/" + this.authService.getDecodedAccessToken().sub);
   }
 }

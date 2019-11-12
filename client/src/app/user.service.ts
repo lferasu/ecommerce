@@ -7,10 +7,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
 
+  auth_url ="35.193.244.58";
+
   constructor(private httpClient: HttpClient) { }
 
 
   registerUser(user: User) {
-    return this.httpClient.post("http://localhost:8099/api/auth/signup", user);
+    return this.httpClient.post("http://"+this.auth_url+"/api/auth/signup", user);
   }
 }

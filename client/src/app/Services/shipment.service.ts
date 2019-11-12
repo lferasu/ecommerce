@@ -30,23 +30,25 @@ export class ShipmentService {
       user: sh_user.username
     };
     console.log(this.cartService.cart.products)
-
+    
+    const payment_url = "34.69.144.144";
+    const shipment_url = "34.70.14.66";
 
     //makePayment
 
     try {
       if (paymentType == 0)
-        this.httpClient.post('http://localhost:8094/payment/creditcard', {});
+        this.httpClient.post("http://"+payment_url+"/payment/creditcard", {});
       if (paymentType == 1)
-        this.httpClient.post('http://localhost:8094/payment/bank', this.loggedInUser.paymentInfo);
+        this.httpClient.post("http://"+payment_url+"/payment/bank", this.loggedInUser.paymentInfo);
       if (paymentType == 2)
-        this.httpClient.post('http://localhost:8094/payment/paypal', this.loggedInUser.paymentInfo);
+        this.httpClient.post("http://"+payment_url+"/payment/paypal", this.loggedInUser.paymentInfo);
     } catch {
       return of(this.errorMessage);
     }
 
     // save shipment
-    this.httpClient.post('http://localhost:8098/products', shipment)
+    this.httpClient.post("http://"+shipment_url+"+/products", shipment)
 
   }
 }
