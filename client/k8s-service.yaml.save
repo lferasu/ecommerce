@@ -5,7 +5,7 @@ metadata:
   labels:
     run: clientservice
 spec:
-  type: NodePort
+  type: NortPort
   ports:
   - port: 80
     targetPort: 80
