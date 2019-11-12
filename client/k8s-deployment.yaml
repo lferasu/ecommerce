@@ -62,3 +62,8 @@ spec:
                 secretKeyRef:
                   name: clientservice-secrets
                   key: service-api-key
+            - name: IMANA
+              valueFrom:
+                secretKeyRef:
+                  name: clientservice-secrets
+                  key: timo
