@@ -8,16 +8,17 @@ import * as jwt_decode from "jwt-decode";
 })
 export class AuthService {
   loggedInUser: User
+  url = "35.193.244.58"
+
   constructor(private httpClient: HttpClient) {
 
   }
 
 
   public login(userInfo: User) {
-    const url = process.env.IMANA;
 
     // return this.httpClient.post("http://localhost:8099/api/auth/login", userInfo);
-    return this.httpClient.post("http://"+url+"/api/auth/login", userInfo);
+    return this.httpClient.post("http://"+this.url+"/api/auth/login", userInfo);
 
   }
 

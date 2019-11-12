@@ -15,6 +15,9 @@ export class CartService {
     totalPrice: 0,
     valid: false
   }
+
+  cart_url = "130.211.202.40";
+
   // userInfo;
   navchange: EventEmitter<number> = new EventEmitter();
   constructor(private httpClient: HttpClient) {
@@ -22,16 +25,16 @@ export class CartService {
   }
   savecart(cart: Cart) {
     console.log(cart);
-    return this.httpClient.post("http://localhost:8093/cart/", cart);
+    return this.httpClient.post("http://"+this.cart_url+"/cart/", cart);
   }
 
   getCart(userName: String) {
-    return this.httpClient.get("http://localhost:8093/cart/" + userName);
+    return this.httpClient.get("http://"+this.cart_url+"/cart/" + userName);
   }
 
   async addToCart(cart: Cart) {
     console.log(cart);
-    this.httpClient.post("http://localhost:8093/cart/", cart).subscribe(data => this.cart = <Cart>data);
+    this.httpClient.post("http://"+this.cart_url+"/cart/", cart).subscribe(data => this.cart = <Cart>data);
 
   }
 
