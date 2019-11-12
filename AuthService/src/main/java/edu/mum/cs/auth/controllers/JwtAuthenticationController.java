@@ -53,6 +53,8 @@ public class JwtAuthenticationController {
     @Value("${USER_SERVICE}")
     private String userService;
 
+    @Value("${SERVICE_API_KEY}")
+    private String service_key;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody LoginForm authenticationRequest) throws Exception {
@@ -70,6 +72,8 @@ public class JwtAuthenticationController {
 
     @PostMapping("/signup")
     public ResponseEntity<User1> registerUser(@Valid @RequestBody User1 signUpForm) {
+
+        System.out.println("*************API KEY*******"+service_key);
         if(userRepository.existsByUsername(signUpForm.getUsername())) {
            throw new ValidationException("Fail -> Username is already taken!");
         }
