@@ -14,7 +14,7 @@ export class AuthService {
 
 
   public login(userInfo: User) {
-    const url = process.env.AUTH_URL;
+    const url = "${AUTH_URL}";
 
     // return this.httpClient.post("http://localhost:8099/api/auth/login", userInfo);
     return this.httpClient.post("http://"+url+"/api/auth/login", userInfo);

@@ -31,30 +31,22 @@ export class ShipmentService {
     };
     console.log(this.cartService.cart.products)
 
-    const paymentURL = process.env.CART_SERVICE;
-    const orderURL = process.env.ORDER_SERVICE;
 
     //makePayment
 
     try {
       if (paymentType == 0)
-        // this.httpClient.post('http://localhost:8094/payment/creditcard', {});
-        this.httpClient.post("http://"+paymentURL+"/payment/creditcard", {});
-
+        this.httpClient.post('http://localhost:8094/payment/creditcard', {});
       if (paymentType == 1)
-        // this.httpClient.post('http://localhost:8094/payment/bank', this.loggedInUser.paymentInfo);
-
-        this.httpClient.post("http://"+paymentURL+"/payment/bank", this.loggedInUser.paymentInfo);
-
+        this.httpClient.post('http://localhost:8094/payment/bank', this.loggedInUser.paymentInfo);
       if (paymentType == 2)
-        // this.httpClient.post('http://localhost:8094/payment/paypal', this.loggedInUser.paymentInfo);
-        this.httpClient.post("http://"+paymentURL+"/payment/paypal", this.loggedInUser.paymentInfo);
+        this.httpClient.post('http://localhost:8094/payment/paypal', this.loggedInUser.paymentInfo);
     } catch {
       return of(this.errorMessage);
     }
 
     // save shipment
-    this.httpClient.post("http://"+orderURL+"/products", shipment)
+    this.httpClient.post('http://localhost:8098/products', shipment)
 
   }
 }
